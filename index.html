@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern QR Code Generator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url("./Nature.png"); 
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+        }
+
+        #container {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 60%;
+        }
+
+        #input-container {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #input-text {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+       
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        #generate-btn {
+            margin-bottom: 10px;
+        }
+
+  #delete-input-btn {
+            margin-bottom: 10px;
+        }
+
+        #qrcode {
+            margin-top: 20px;
+        }
+
+        @media (max-width: 320px) {
+            #input-text {
+                padding: 6px;
+                font-size: 12px;
+            }
+
+            .button {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Modern QR Code Generator</h1>
+
+        <div id="input-container">
+            <input type="text" id="input-text" placeholder="Enter text or URL">
+            <button class="button" id="generate-btn" onclick="generateQRCode()">Generate QR Code</button>
+            <button class="button" id="delete-input-btn" onclick="deleteInput()">Delete Input</button>
+            <button class="button" id="delete-qrcode-btn" onclick="deleteQRCode()">Delete QR Code</button>
+        </div>
+
+        <div id="qrcode"></div>
+    </div>
+
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script>
+        const inputText = document.getElementById('input-text');
+        const qrcodeContainer = document.getElementById('qrcode');
+        let qrcodeInstance;
+
+        function generateQRCode() {
+            const text = inputText.value.trim();
+
+            if (text !== '') {
+                qrcodeContainer.innerHTML = ''; // Clear previous QR code
+                qrcodeInstance = new QRCode(qrcodeContainer, {
+                    text,
+                    width: 128,
+                    height: 128
+                });
+            } else {
+                alert('Please enter text or URL before generating QR code.');
+            }
+        }
+
+        function deleteInput() {
+            inputText.value = '';
+            qrcodeContainer.innerHTML = '';
+        }
+
+        function deleteQRCode() {
+            qrcodeContainer.innerHTML = '';
+        }
+    </script>
+</body>
+</html>

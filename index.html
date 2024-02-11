@@ -12,7 +12,7 @@
             height: 100vh;
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: url("./Nature.png"); 
+            background-image: url("./Nature.png");
             background-size: cover;
             background-position: center;
             color: #fff;
@@ -56,7 +56,7 @@
             box-sizing: border-box;
             font-size: 14px;
         }
-       
+
         .button:hover {
             background-color: #45a049;
         }
@@ -65,7 +65,15 @@
             margin-bottom: 10px;
         }
 
-  #delete-input-btn {
+        #delete-input-btn {
+            margin-bottom: 10px;
+        }
+
+        #delete-qrcode-btn {
+            margin-bottom: 10px;
+        }
+
+        #download-btn {
             margin-bottom: 10px;
         }
 
@@ -94,6 +102,7 @@
             <button class="button" id="generate-btn" onclick="generateQRCode()">Generate QR Code</button>
             <button class="button" id="delete-input-btn" onclick="deleteInput()">Delete Input</button>
             <button class="button" id="delete-qrcode-btn" onclick="deleteQRCode()">Delete QR Code</button>
+            <button class="button" id="download-btn" onclick="downloadQRCode()">Download QR Code</button>
         </div>
 
         <div id="qrcode"></div>
@@ -122,11 +131,24 @@
 
         function deleteInput() {
             inputText.value = '';
-            qrcodeContainer.innerHTML = '';
         }
 
         function deleteQRCode() {
             qrcodeContainer.innerHTML = '';
+            qrcodeInstance = undefined;
+        }
+
+        function downloadQRCode() {
+            if (qrcodeInstance) {
+                const canvas = qrcodeContainer.querySelector('canvas');
+                const imageURL = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.href = imageURL;
+                link.download = 'qrcode.png';
+                link.click();
+            } else {
+                alert('No QR code to download. Generate a QR code first.');
+            }
         }
     </script>
 </body>
